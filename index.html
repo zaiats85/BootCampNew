@@ -1,14 +1,121 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title></head>
+    <meta charset="utf-8">
+    <title>Object-oriented JavaScript inheritance</title>
+</head>
+
 <body>
+<div>
+    <h2>JS Inheritance</h2>
 
-Tutorial
+    <ol>
+        <li>Basic inheritance ES5</li>
+        <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create">Object Create</a></li>
+        <li>Basic Prototype chaining</li>
+        <li>Prototypical inheritance ES5</li>
+        <li><a href="https://drive.google.com/drive/u/0/folders/0B-F5wa3IKCXWaGJnTWpONzV0ckk">Basic ES6 inheritance </a></li>
+        <li>Advanced understanding of ES6 inheritance</li>
+    </ol>
 
+    <h2>Browser Events</h2>
+        <ol>
+            <li><a href="https://javascript.info/introduction-browser-events">Events</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Creating_and_triggering_events">Emitting Custom Events</a></li>
+            <li>Listeners</li>
+        </ol>
+
+    <input type="text" id="jscode">
+
+    <code><a href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects">MDN</a></code>
+    <code><a href="https://medium.com/ecmascript-2015/es6-classes-and-inheritance-607804080906">Medium</a></code>
+
+</div>
+
+<p></p>
 </body>
+
+<script>
+  let input = document.querySelector('input');
+  let btn = document.querySelector('button');
+  let para = document.querySelector('p');
+
+  function Person(first, last, age, gender, interests) {
+    this.name = {
+      first,
+      last
+    };
+    this.age = age;
+    this.gender = gender;
+    this.interests = interests;
+  };
+
+  Person.prototype.bio = function() {
+    // First define a string, and make it equal to the part of
+    // the bio that we know will always be the same.
+    var string = this.name.first + ' ' + this.name.last + ' is ' + this.age + ' years old. ';
+
+    // define a variable that will contain the pronoun part of
+    // the second sentence
+    var pronoun;
+
+    // check what the value of gender is, and set pronoun
+    // to an appropriate value in each case
+    if(this.gender === 'male' || this.gender === 'Male' || this.gender === 'm' || this.gender === 'M') {
+      pronoun = 'He likes ';
+    } else if(this.gender === 'female' || this.gender === 'Female' || this.gender === 'f' || this.gender === 'F') {
+      pronoun = 'She likes ';
+    } else {
+      pronoun = 'They like ';
+    }
+
+    // add the pronoun string on to the end of the main string
+    string += pronoun;
+
+    // use another conditional to structure the last part of the
+    // second sentence depending on whether the number of interests
+    // is 1, 2, or 3
+    if(this.interests.length === 1) {
+      string += this.interests[0] + '.';
+    } else if(this.interests.length === 2) {
+      string += this.interests[0] + ' and ' + this.interests[1] + '.';
+    } else {
+      // if there are more than 2 interests, we loop through them
+      // all, adding each one to the main string followed by a comma,
+      // except for the last one, which needs an and & a full stop
+      for(var i = 0; i < this.interests.length; i++) {
+        if(i === this.interests.length - 1) {
+          string += 'and ' + this.interests[i] + '.';
+        } else {
+          string += this.interests[i] + ', ';
+        }
+      }
+    }
+    // finally, with the string built, we alert() it
+    alert(string);
+  };
+
+  Person.prototype.greeting = function() {
+    alert('Hi! I\'m ' + this.name.first + '.');
+  };
+
+  Person.prototype.farewell = function() {
+    alert(this.name.first + ' has left the building. Bye for now!');
+  }
+
+  var person1 = new Person('Tammi', 'Smith', 17, 'female', ['music', 'skiing', 'kickboxing']);
+
+  function Teacher(first, last, age, gender, interests, subject){
+        Person.call(this, first, last, age, gender, interests);
+        this.subject = subject;
+  }
+
+  var teacher1 = new Teacher("Miranda", 'Luis', 18, "female", ['fitness', 'cinema'], 'mathematics');
+
+
+  function Student(){
+
+  }
+
+</script>
 </html>
